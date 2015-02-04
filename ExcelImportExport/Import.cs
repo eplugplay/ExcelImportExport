@@ -14,6 +14,7 @@ namespace ExcelImportExport
     public partial class Import : Form
     {
         private bool IsNew {get; set;}
+        private int id { get; set; }
         public Import(bool _isNew)
         {
             InitializeComponent();
@@ -27,15 +28,16 @@ namespace ExcelImportExport
             {
                 //GbxStudent.Enabled = true;
                 GbxLoadStudents.Enabled = false;
-                btnEdit.Visible = false;
+                btnSave.Visible = false;
             }
             else
             {
                 //GbxStudent.Enabled = false;
                 GbxLoadStudents.Enabled = true;
                 LoadStudentsDDL();
-                LoadStudentData(Convert.ToInt32(ddlStudents.SelectedValue));
-                btnEdit.Visible = true;
+                id = Convert.ToInt32(ddlStudents.SelectedValue);
+                LoadStudentData(id);
+                btnSave.Visible = true;
             }
         }
 
@@ -67,7 +69,7 @@ namespace ExcelImportExport
                 txtLastName.Text = dt.Rows[i]["lastname"].ToString();
                 txtStudentID.Text = dt.Rows[i]["studentid"].ToString();
                 txtEmail.Text = dt.Rows[i]["email"].ToString();
-                //Convert.ToDouble(dt.Rows[i]["gpa"], double);
+                txtGPA.Text = Convert.ToDouble(dt.Rows[i]["gpa"]).ToString();
             }
         }
 
@@ -88,39 +90,92 @@ namespace ExcelImportExport
                     //MessageBox.Show("Saved.");
                 }
             }
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (txtFirstName.Text == "") { MessageBox.Show("Please enter First Name."); txtFirstName.Focus(); return; }
-            if (txtLastName.Text == "")
-            { MessageBox.Show("Please enter Last Name."); txtLastName.Focus(); return; }
-            if (txtGPA.Text == "") { MessageBox.Show("Please enter GPA."); return; }
-            try { double.Parse(txtGPA.Text); int.Parse(txtStudentID.Text); }
-            catch { MessageBox.Show("Please enter number only."); return; }
-            //if (Uti.ValidateStudent(Convert.ToInt32(txtStudentID.Text))) { MessageBox.Show("Student already exist"); return; }
-            if (MessageBox.Show("Update?", "Update Information?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            else
             {
-                Class.ImportData.UpdateData(Convert.ToInt32(ddlStudents.SelectedValue), Convert.ToInt32(txtStudentID.Text), txtFirstName.Text, txtLastName.Text, txtEmail.Text, Convert.ToDouble(txtGPA.Text));
-                LoadStudentsDDL();
-                MessageBox.Show("Updated.");
+                if (txtFirstName.Text == "") { MessageBox.Show("Please enter First Name."); txtFirstName.Focus(); return; }
+                if (txtLastName.Text == "")
+                { MessageBox.Show("Please enter Last Name."); txtLastName.Focus(); return; }
+                if (txtGPA.Text == "") { MessageBox.Show("Please enter GPA."); return; }
+                try { double.Parse(txtGPA.Text); int.Parse(txtStudentID.Text); }
+                catch { MessageBox.Show("Please enter number only."); return; }
+                //if (Uti.ValidateStudent(Convert.ToInt32(txtStudentID.Text))) { MessageBox.Show("Student already exist"); return; }
+                if (MessageBox.Show("Update?", "Update Information?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Class.ImportData.UpdateData(Convert.ToInt32(ddlStudents.SelectedValue), Convert.ToInt32(txtStudentID.Text), txtFirstName.Text, txtLastName.Text, txtEmail.Text, Convert.ToDouble(txtGPA.Text));
+                    LoadStudentsDDL();
+                    ddlStudents.SelectedValue = id;
+                    MessageBox.Show("Updated.");
+                }
             }
         }
 
+        private string GetSavePath()
+        {
+            string ToBeReturned;
+            saveFileDialog.DefaultExt = "*.xls";
+            saveFileDialog.Filter = "Excel File (*.xls)|*.xls|All files (*.*)|*.*";
+            saveFileDialog.FileName = "Export - " + DateTime.Now.ToString("MMM-yy") + ".xls";
 
-        #region Students dropdown Events
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ToBeReturned = saveFileDialog.FileName;
+            }
+            else
+            {
+                ToBeReturned = string.Empty;
+            }
+            return ToBeReturned;
+        }
+
+        private void Export()
+        {
+            //string path = GetSavePath();
+            string path = "d";
+            if (path != "")
+            {
+                if (chkAllRecords.Checked)
+                {
+                    LoadReport(ConvertToExcel.GetReportData(Uti.GetAllStudents(), path));
+                }
+                else
+                {
+                    LoadReport(ConvertToExcel.GetReportData(Uti.GetIndividualStudent(id), path));
+                }
+            }
+        }
+
+        private static ReportForm _ReportForm;
+        private void LoadReport(DataTable dt)
+        {
+            if (_ReportForm == null || _ReportForm.IsDisposed)
+            {
+                _ReportForm = new ReportForm(dt);
+                _ReportForm.Show();
+            }
+            else
+            {
+                if (_ReportForm.WindowState == FormWindowState.Minimized)
+                {
+                    _ReportForm.WindowState = FormWindowState.Normal;
+                }
+                else
+                {
+                    _ReportForm.BringToFront();
+                }
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            Export();
+        }
+
+        #region Events
 
         private void ddlStudents_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            LoadStudentData(Convert.ToInt32(ddlStudents.SelectedValue));
-        }
-
-        private void ddlStudents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (!Convert.ToInt32(ddlStudents.SelectedValue).Equals(-1))
-            //{
-            //    //int id = Convert.ToInt32(ddlStudents.SelectedValue);
-            //}
+            id = Convert.ToInt32(ddlStudents.SelectedValue);
+            LoadStudentData(id);
         }
 
         private bool controlKey = false;
@@ -140,7 +195,6 @@ namespace ExcelImportExport
                 if (match != -1)
                 {
                     ddlStudents.SelectedIndex = match;
-
                     // Select added text so it can be replied 
                     // if the user keeps typing.
                     ddlStudents.SelectionStart = matchText.Length;
@@ -185,8 +239,14 @@ namespace ExcelImportExport
         private void ddlStudents_Validating(object sender, CancelEventArgs e)
         {
             base.OnValidating(e);
-            ddlStudents.SelectedIndex = ddlStudents.FindStringExact(base.Text);
+            //ddlStudents.SelectedIndex = ddlStudents.FindStringExact(base.Text);
+        }
+
+        private void chkAllRecords_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (chkAllRecords.Checked) { GbxLoadStudents.Enabled = false; GbxStudent.Enabled = false; } else { GbxLoadStudents.Enabled = true; GbxStudent.Enabled = true; }
         }
         #endregion
+
     }
 }

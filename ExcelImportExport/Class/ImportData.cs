@@ -7,6 +7,9 @@ using System.Configuration;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Collections;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.HSSF.Util;
 
 namespace ExcelImportExport.Class
 {
@@ -49,4 +52,81 @@ namespace ExcelImportExport.Class
             }
         }
     }
+
+    public static class ConvertToExcel
+    {
+        public static DataTable GetReportData(DataTable dt, string savePath)
+        {
+            DataTable dtFinal = new DataTable();
+            //DataColumn dc = dtFinal.Columns.Add("id", typeof(int));
+            //dc.Unique = true;
+            dtFinal.Columns.Add("Student ID", typeof(int));
+            dtFinal.Columns.Add("First Name", typeof(string));
+            dtFinal.Columns.Add("Last Name", typeof(string));
+            dtFinal.Columns.Add("GPA", typeof(double));
+            dtFinal.Columns.Add("Email", typeof(string));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataRow dr = dtFinal.NewRow();
+                dr["Student ID"] = dt.Rows[i]["studentid"];
+                dr["First Name"] = dt.Rows[i]["firstname"];
+                dr["Last Name"] = dt.Rows[i]["lastname"];
+                dr["GPA"] = dt.Rows[i]["gpa"];
+                dr["Email"] = dt.Rows[i]["email"];
+                dtFinal.Rows.Add(dr);
+            }
+
+            //GenerateExcel(dtFinal, savePath);
+            return dtFinal;
+            //System.Diagnostics.Process.Start(savePath);
+        }
+
+        private static void GenerateExcel(DataTable _dtFinal, string _savePath)
+        {
+            ExcelNPOIWriter excelObj = new ExcelNPOIWriter();
+            excelObj.CreateWorksheet("Sheet1");
+            excelObj.WriteData(_dtFinal, "Sheet1", true, 4);
+            AutoSizeColumns(excelObj, _dtFinal, "Sheet1");
+            HSSFSheet sheet1 = excelObj.GetWorksheet("Sheet1");
+            sheet1.PrintSetup.Landscape = true;
+
+            //styles
+            //alignment
+            excelObj.createStyle("Headers");
+            excelObj.setAlignment("Headers", HorizontalAlignment.CENTER);
+            excelObj.setBorders("Headers", CellBorderType.MEDIUM);
+            excelObj.setFont("Headers", true, HSSFColor.DARK_BLUE.index);
+            excelObj.setShrinkToFit("Headers", true);
+            excelObj.setFillForeground("Headers", HSSFColor.GREY_25_PERCENT.index, FillPatternType.SOLID_FOREGROUND);
+
+            try
+            {
+                for (int i = 0; i < _dtFinal.Rows.Count; i++)
+                {
+                    for (int b = 0; b < _dtFinal.Columns.Count; b++)
+                    {
+                        excelObj.getCell(4 + i, b, "Sheet1").CellStyle = excelObj.getStyle("Headers");
+                    }
+                }
+
+                excelObj.getCell(4, 0, "Sheet1").CellFormula = string.Format("A{0} - A{1}", 1, 2);
+                excelObj.Save(_savePath);
+            }
+            catch (Exception e)
+            {
+                excelObj.Dispose();
+            }
+            finally { excelObj.Dispose(); }
+        }
+
+        private static void AutoSizeColumns(ExcelNPOIWriter exObj, DataTable tbl, string sheetName)
+        {
+            for (int i = 0; i <= tbl.Columns.Count; i++)
+            {
+                exObj.AutoSizeColumn(i, sheetName);
+            }
+        }
+    }
 }
+

@@ -13,10 +13,12 @@ C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\E
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.pdb
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.csprojResolveAssemblyReference.cache
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Import.resources
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.MainMenu.resources
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Properties.Resources.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.ReportForm.resources
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.csproj.GenerateResource.Cache
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.cache
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.compiled
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.exe
 C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.pdb

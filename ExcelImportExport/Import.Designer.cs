@@ -31,6 +31,7 @@
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.GbxStudent = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtStudentID = new System.Windows.Forms.TextBox();
@@ -39,11 +40,12 @@
             this.lblGPA = new System.Windows.Forms.Label();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.lblLastName = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.ddlStudents = new System.Windows.Forms.ComboBox();
             this.lblStudentFullName = new System.Windows.Forms.Label();
             this.GbxLoadStudents = new System.Windows.Forms.GroupBox();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.chkAllRecords = new System.Windows.Forms.CheckBox();
             this.GbxStudent.SuspendLayout();
             this.GbxLoadStudents.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +53,7 @@
             // txtFirstName
             // 
             this.txtFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFirstName.Location = new System.Drawing.Point(72, 23);
+            this.txtFirstName.Location = new System.Drawing.Point(72, 49);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(222, 20);
             this.txtFirstName.TabIndex = 0;
@@ -60,7 +62,7 @@
             // 
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFirstName.Location = new System.Drawing.Point(6, 26);
+            this.lblFirstName.Location = new System.Drawing.Point(6, 52);
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.Size = new System.Drawing.Size(60, 13);
             this.lblFirstName.TabIndex = 1;
@@ -68,7 +70,7 @@
             // 
             // GbxStudent
             // 
-            this.GbxStudent.Controls.Add(this.btnEdit);
+            this.GbxStudent.Controls.Add(this.btnSave);
             this.GbxStudent.Controls.Add(this.txtEmail);
             this.GbxStudent.Controls.Add(this.lblEmail);
             this.GbxStudent.Controls.Add(this.txtStudentID);
@@ -86,6 +88,17 @@
             this.GbxStudent.TabIndex = 2;
             this.GbxStudent.TabStop = false;
             this.GbxStudent.Text = "Student Information";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(300, 127);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(51, 23);
+            this.btnSave.TabIndex = 11;
+            this.btnSave.TabStop = false;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtEmail
             // 
@@ -108,7 +121,7 @@
             // txtStudentID
             // 
             this.txtStudentID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudentID.Location = new System.Drawing.Point(72, 75);
+            this.txtStudentID.Location = new System.Drawing.Point(72, 23);
             this.txtStudentID.Name = "txtStudentID";
             this.txtStudentID.Size = new System.Drawing.Size(222, 20);
             this.txtStudentID.TabIndex = 2;
@@ -117,7 +130,7 @@
             // 
             this.lblStudentID.AutoSize = true;
             this.lblStudentID.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudentID.Location = new System.Drawing.Point(6, 78);
+            this.lblStudentID.Location = new System.Drawing.Point(6, 26);
             this.lblStudentID.Name = "lblStudentID";
             this.lblStudentID.Size = new System.Drawing.Size(61, 13);
             this.lblStudentID.TabIndex = 8;
@@ -144,7 +157,7 @@
             // txtLastName
             // 
             this.txtLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLastName.Location = new System.Drawing.Point(72, 49);
+            this.txtLastName.Location = new System.Drawing.Point(72, 75);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(222, 20);
             this.txtLastName.TabIndex = 1;
@@ -153,32 +166,31 @@
             // 
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastName.Location = new System.Drawing.Point(6, 52);
+            this.lblLastName.Location = new System.Drawing.Point(6, 78);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.Size = new System.Drawing.Size(61, 13);
             this.lblLastName.TabIndex = 3;
             this.lblLastName.Text = "Last Name:";
             // 
-            // btnSave
+            // btnExport
             // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(294, 231);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Export";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.Location = new System.Drawing.Point(255, 231);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(114, 23);
+            this.btnExport.TabIndex = 5;
+            this.btnExport.Text = "Generate Report";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // ddlStudents
             // 
             this.ddlStudents.FormattingEnabled = true;
-            this.ddlStudents.Location = new System.Drawing.Point(50, 22);
+            this.ddlStudents.Location = new System.Drawing.Point(50, 19);
             this.ddlStudents.Name = "ddlStudents";
             this.ddlStudents.Size = new System.Drawing.Size(302, 21);
             this.ddlStudents.TabIndex = 11;
             this.ddlStudents.TabStop = false;
-            this.ddlStudents.SelectedIndexChanged += new System.EventHandler(this.ddlStudents_SelectedIndexChanged);
             this.ddlStudents.SelectionChangeCommitted += new System.EventHandler(this.ddlStudents_SelectionChangeCommitted);
             this.ddlStudents.TextChanged += new System.EventHandler(this.ddlStudents_TextChanged);
             this.ddlStudents.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ddlStudents_KeyPress);
@@ -189,7 +201,7 @@
             // 
             this.lblStudentFullName.AutoSize = true;
             this.lblStudentFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudentFullName.Location = new System.Drawing.Point(6, 26);
+            this.lblStudentFullName.Location = new System.Drawing.Point(6, 23);
             this.lblStudentFullName.Name = "lblStudentFullName";
             this.lblStudentFullName.Size = new System.Drawing.Size(38, 13);
             this.lblStudentFullName.TabIndex = 12;
@@ -200,32 +212,34 @@
             this.GbxLoadStudents.Controls.Add(this.ddlStudents);
             this.GbxLoadStudents.Controls.Add(this.lblStudentFullName);
             this.GbxLoadStudents.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GbxLoadStudents.Location = new System.Drawing.Point(11, 13);
+            this.GbxLoadStudents.Location = new System.Drawing.Point(11, 12);
             this.GbxLoadStudents.Name = "GbxLoadStudents";
-            this.GbxLoadStudents.Size = new System.Drawing.Size(358, 50);
+            this.GbxLoadStudents.Size = new System.Drawing.Size(358, 51);
             this.GbxLoadStudents.TabIndex = 13;
             this.GbxLoadStudents.TabStop = false;
             this.GbxLoadStudents.Text = "Select Student";
             // 
-            // btnEdit
+            // chkAllRecords
             // 
-            this.btnEdit.Location = new System.Drawing.Point(300, 127);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(51, 23);
-            this.btnEdit.TabIndex = 11;
-            this.btnEdit.TabStop = false;
-            this.btnEdit.Text = "Save";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.chkAllRecords.AutoSize = true;
+            this.chkAllRecords.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAllRecords.Location = new System.Drawing.Point(158, 235);
+            this.chkAllRecords.Name = "chkAllRecords";
+            this.chkAllRecords.Size = new System.Drawing.Size(91, 17);
+            this.chkAllRecords.TabIndex = 13;
+            this.chkAllRecords.Text = "All Records";
+            this.chkAllRecords.UseVisualStyleBackColor = true;
+            this.chkAllRecords.CheckStateChanged += new System.EventHandler(this.chkAllRecords_CheckStateChanged);
             // 
             // Import
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(377, 257);
+            this.Controls.Add(this.chkAllRecords);
             this.Controls.Add(this.GbxLoadStudents);
             this.Controls.Add(this.GbxStudent);
-            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnExport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Import";
@@ -237,6 +251,7 @@
             this.GbxLoadStudents.ResumeLayout(false);
             this.GbxLoadStudents.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -249,7 +264,7 @@
         private System.Windows.Forms.Label lblGPA;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label lblLastName;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtStudentID;
@@ -257,6 +272,8 @@
         private System.Windows.Forms.ComboBox ddlStudents;
         private System.Windows.Forms.Label lblStudentFullName;
         private System.Windows.Forms.GroupBox GbxLoadStudents;
-        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.CheckBox chkAllRecords;
     }
 }
