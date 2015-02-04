@@ -35,6 +35,8 @@ namespace ExcelImportExport
                 dr["id"] = i;
                 ds.Tables["dtFinal"].Rows.Add(dr);
             }
+            //string deviceInf = "<DeviceInfo><PageHeight>20.5in</PageHeight><PageWidth>11in</PageWidth></DeviceInfo>";
+            //reportViewer1.LocalReport.Render("PDF", deviceInf);
             this.dtFinalBindingSource.DataSource = ds;
             this.reportViewer1.RefreshReport();
         }

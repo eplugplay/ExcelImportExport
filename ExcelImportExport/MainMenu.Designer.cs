@@ -30,15 +30,13 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newReportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editReportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.singleExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.multipleExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,17 +53,47 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.exportToolStripMenuItem,
+            this.ReportsToolStripMenuItem,
+            this.ImportToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // ReportsToolStripMenuItem
+            // 
+            this.ReportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newReportsToolStripMenuItem,
+            this.editReportsToolStripMenuItem});
+            this.ReportsToolStripMenuItem.Name = "ReportsToolStripMenuItem";
+            this.ReportsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ReportsToolStripMenuItem.Text = "Reports";
+            // 
+            // newReportsToolStripMenuItem
+            // 
+            this.newReportsToolStripMenuItem.Name = "newReportsToolStripMenuItem";
+            this.newReportsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newReportsToolStripMenuItem.Text = "New Reports";
+            this.newReportsToolStripMenuItem.Click += new System.EventHandler(this.newReportsToolStripMenuItem_Click);
+            // 
+            // editReportsToolStripMenuItem
+            // 
+            this.editReportsToolStripMenuItem.Name = "editReportsToolStripMenuItem";
+            this.editReportsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editReportsToolStripMenuItem.Text = "Edit Reports";
+            this.editReportsToolStripMenuItem.Click += new System.EventHandler(this.editReportsToolStripMenuItem_Click);
+            // 
+            // ImportToolStripMenuItem
+            // 
+            this.ImportToolStripMenuItem.Name = "ImportToolStripMenuItem";
+            this.ImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ImportToolStripMenuItem.Text = "Import";
+            this.ImportToolStripMenuItem.Click += new System.EventHandler(this.ImportToolStripMenuItem_Click);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -77,7 +105,6 @@
             this.btnImport.TabIndex = 1;
             this.btnImport.Text = "Import";
             this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnExport
             // 
@@ -87,51 +114,6 @@
             this.btnExport.TabIndex = 2;
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newImportToolStripMenuItem,
-            this.editImportToolStripMenuItem});
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.singleExportToolStripMenuItem,
-            this.multipleExportToolStripMenuItem});
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            // 
-            // newImportToolStripMenuItem
-            // 
-            this.newImportToolStripMenuItem.Name = "newImportToolStripMenuItem";
-            this.newImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newImportToolStripMenuItem.Text = "New Import";
-            this.newImportToolStripMenuItem.Click += new System.EventHandler(this.newImportToolStripMenuItem_Click);
-            // 
-            // editImportToolStripMenuItem
-            // 
-            this.editImportToolStripMenuItem.Name = "editImportToolStripMenuItem";
-            this.editImportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.editImportToolStripMenuItem.Text = "Edit Import";
-            this.editImportToolStripMenuItem.Click += new System.EventHandler(this.editImportToolStripMenuItem_Click);
-            // 
-            // singleExportToolStripMenuItem
-            // 
-            this.singleExportToolStripMenuItem.Name = "singleExportToolStripMenuItem";
-            this.singleExportToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.singleExportToolStripMenuItem.Text = "Single Export";
-            // 
-            // multipleExportToolStripMenuItem
-            // 
-            this.multipleExportToolStripMenuItem.Name = "multipleExportToolStripMenuItem";
-            this.multipleExportToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.multipleExportToolStripMenuItem.Text = "Multiple Export";
             // 
             // MainMenu
             // 
@@ -161,12 +143,10 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newImportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editImportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem singleExportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem multipleExportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ReportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ImportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newReportsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editReportsToolStripMenuItem;
     }
 }
 

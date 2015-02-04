@@ -6,19 +6,19 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.32014in</Width>
+              <Width>1.30972in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.02847in</Width>
+              <Width>1.28889in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.07014in</Width>
+              <Width>1.33056in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.62917in</Width>
+              <Width>0.74375in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.55625in</Width>
+              <Width>2.025in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -390,7 +390,7 @@
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
         <Height>0.80208in</Height>
-        <Width>13.60417in</Width>
+        <Width>6.69792in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -398,11 +398,13 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2.8125in</Height>
+    <Height>2.03729cm</Height>
     <Style />
   </Body>
-  <Width>13.60417in</Width>
+  <Width>17.01271cm</Width>
   <Page>
+    <PageHeight>8.3in</PageHeight>
+    <PageWidth>11.7in</PageWidth>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>

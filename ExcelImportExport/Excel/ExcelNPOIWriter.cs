@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using NPOI.HSSF.UserModel;
 using System.IO;
+using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
-
 namespace ExcelImportExport
 {
     class ExcelNPOIWriter:ExcelWriter
     {
         HSSFWorkbook hssfworkbook;
-        DataFormat fmt;
-        CellStyle dateStyle;
+        IDataFormat fmt;
+        ICellStyle dateStyle;
         public ExcelNPOIWriter()
         {
             hssfworkbook = new HSSFWorkbook();
@@ -54,13 +54,13 @@ namespace ExcelImportExport
 
         private void WriteCellTypeValue(double Value, HSSFCell cell)
         {
-            cell.SetCellType(CellType.NUMERIC);
+            cell.SetCellType(CellType.Numeric);
             cell.SetCellValue(Value);
         }
 
         private void WriteCellTypeValue(DateTime Value, HSSFCell cell)
         {
-            cell.SetCellType(CellType.NUMERIC);
+            cell.SetCellType(CellType.Numeric);
             cell.CellStyle = dateStyle;
             cell.SetCellValue(Value);
         }
@@ -101,7 +101,7 @@ namespace ExcelImportExport
 
         protected override void Dispose(bool Disposing)
         {
-            hssfworkbook.Dispose();
+            hssfworkbook.Clear();
         }
 
         public HSSFSheet GetWorksheet(string worksheetName)
@@ -138,7 +138,7 @@ namespace ExcelImportExport
                 ExcelStyles[name].DataFormat = new HSSFDataFormat(hssfworkbook.Workbook).GetFormat(format);
         }
 
-        public void setBorders(string name, CellBorderType type)
+        public void setBorders(string name, NPOI.SS.UserModel.BorderStyle type)
         {
             ExcelStyles[name].BorderBottom = type;
             ExcelStyles[name].BorderLeft = type;
@@ -146,7 +146,7 @@ namespace ExcelImportExport
             ExcelStyles[name].BorderTop = type;
         }
 
-        public void setBorders(string name, bool top, bool bottom, bool left, bool right, CellBorderType type)
+        public void setBorders(string name, bool top, bool bottom, bool left, bool right, BorderStyle type)
         {
             if(bottom)
                 ExcelStyles[name].BorderBottom = type;
@@ -162,7 +162,7 @@ namespace ExcelImportExport
         {
             HSSFFont font = (HSSFFont)hssfworkbook.CreateFont();
             if(bold)
-                font.Boldweight = (short)FontBoldWeight.BOLD;
+                font.Boldweight = (short)FontBoldWeight.Bold;
             
             ExcelStyles[name].SetFont(font);
         }
@@ -171,7 +171,7 @@ namespace ExcelImportExport
         {
             HSSFFont font = (HSSFFont)hssfworkbook.CreateFont();
             if (bold)
-                font.Boldweight = (short)FontBoldWeight.BOLD;
+                font.Boldweight = (short)FontBoldWeight.Bold;
             font.Color = color;
 
             ExcelStyles[name].SetFont(font);
@@ -187,7 +187,7 @@ namespace ExcelImportExport
             ExcelStyles[name].ShrinkToFit = stf;
         }
 
-        public void setFillForeground(string name, short color, FillPatternType type)
+        public void setFillForeground(string name, short color, FillPattern type)
         {
             ExcelStyles[name].FillForegroundColor = color;
             ExcelStyles[name].FillPattern = type;
