@@ -21,6 +21,7 @@ namespace ExcelImportExport.Class
         {
             DataTable dt = new DataTable();
             DataColumn dc = dt.Columns.Add("studentid", typeof(int));
+            //dc.Unique = true;
             dt.Columns.Add("firstname", typeof(string));
             dt.Columns.Add("lastname", typeof(string));
             dt.Columns.Add("gpa", typeof(double));
@@ -50,24 +51,12 @@ namespace ExcelImportExport.Class
                             if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
                             {
                                 DataRow dr = dt.NewRow();
-                                try
-                                {
-                                    dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());
-                                }
-                                catch
-                                {
-                                    dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());
-                                }
+                                try{dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());}
+                                catch{dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());}
                                 dr["firstname"] = sheet.GetRow(row + 1).GetCell(1).StringCellValue.ToString();
                                 dr["lastname"] = sheet.GetRow(row + 1).GetCell(2).StringCellValue.ToString();
-                                try
-                                {
-                                    dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).NumericCellValue.ToString());
-                                }
-                                catch
-                                {
-                                    dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).StringCellValue.ToString());
-                                }
+                                try{dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).NumericCellValue.ToString());}
+                                catch{dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).StringCellValue.ToString());}
                                 dr["email"] = sheet.GetRow(row + 1).GetCell(4).StringCellValue.ToString();
                                 dt.Rows.Add(dr);
                             }
