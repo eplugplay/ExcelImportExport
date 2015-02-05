@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Collections;
+using System.Configuration;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.HSSF.Util;
@@ -16,35 +17,105 @@ namespace ExcelImportExport.Class
 {
     public static class ImportData
     {
-        public static void LoadExcel(string path)
+        public static void LoadExcel(ArrayList path)
         {
             DataTable dt = new DataTable();
+            DataColumn dc = dt.Columns.Add("studentid", typeof(int));
+            dt.Columns.Add("firstname", typeof(string));
+            dt.Columns.Add("lastname", typeof(string));
+            dt.Columns.Add("gpa", typeof(double));
+            dt.Columns.Add("email", typeof(string));
 
-            HSSFWorkbook workbook1;
-            XSSFWorkbook workbook2;
-            if (path.Contains(".xls"))
+            try
             {
-                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+                for (int i = 0; i < path.Count; i++)
                 {
-                    workbook1 = new HSSFWorkbook(file);
-                    var sheet = workbook1.GetSheet("Sheet1");
-                    for (int row = 0; row <= sheet.LastRowNum; row++)
+                    string[] checkPath = path[i].ToString().Split('\\');
+                    string[] extSplit = checkPath[(checkPath.Length - 1)].ToString().Split('.');
+                    if (extSplit[1].ToString().ToUpper().Equals("XLSX"))
                     {
-                        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                        using (FileStream file = new FileStream(path[i].ToString(), FileMode.Open, FileAccess.Read))
                         {
-                            DataRow dr = dt.NewRow();
+                            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file);
+                            var sheet = xssfWorkbook.GetSheet("Report1");
 
-                            string s = string.Format("Row {0} = {1}", row, sheet.GetRow(row).GetCell(0).StringCellValue);
+                            for (int row = 0; row < sheet.LastRowNum; row++)
+                            {
+                                if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                                {
+                                    DataRow dr = dt.NewRow();
+                                    try
+                                    {
+                                        dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());
+                                    }
+                                    catch
+                                    {
+                                        dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());
+                                    }
+                                    dr["firstname"] = sheet.GetRow(row + 1).GetCell(1).StringCellValue.ToString();
+                                    dr["lastname"] = sheet.GetRow(row + 1).GetCell(2).StringCellValue.ToString();
+                                    try
+                                    {
+                                        dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).NumericCellValue.ToString());
+                                    }
+                                    catch
+                                    {
+                                        dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).StringCellValue.ToString());
+                                    }
+                                    dr["email"] = sheet.GetRow(row + 1).GetCell(4).StringCellValue.ToString();
+                                    dt.Rows.Add(dr);
+                                }
+                            }
                         }
                     }
+                    else if (extSplit[1].ToString().ToUpper().Equals("XLS"))
+                    {
+                        //using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+                        //{
+                        //    HSSFWorkbook hssfWorkbook = new HSSFWorkbook(file);
+                        //    var sheet = hssfWorkbook.GetSheet("Sheet1");
+                        //    for (int row = 0; row < sheet.LastRowNum - 1; row++)
+                        //    {
+                        //        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                        //        {
+                        //            DataRow dr = dt.NewRow();
+                        //            dr["studentid"] = Convert.ToInt32(sheet.GetRow(row).GetCell(0).StringCellValue.ToString());
+                        //            dr["firstname"] = sheet.GetRow(row).GetCell(1).StringCellValue.ToString();
+                        //            dr["lastname"] = sheet.GetRow(row).GetCell(2).StringCellValue.ToString();
+                        //            dr["gpa"] = Convert.ToDouble(sheet.GetRow(row).GetCell(3).StringCellValue.ToString());
+                        //            dr["email"] = sheet.GetRow(row).GetCell(4).StringCellValue.ToString();
+                        //            dt.Rows.Add(dr);
+                        //        }
+                        //    }
+                        //}
+                    }
                 }
+                SaveExcelToDb(dt);
             }
-            else if (path.Contains(".xlsx"))
+            catch
             {
-                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+
+            }
+        }
+
+        public static void SaveExcelToDb(DataTable dt)
+        {
+            using (MySqlConnection cnn = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnn"].ToString()))
+            {
+                cnn.Open();
+                using (var cmd = cnn.CreateCommand())
                 {
-                    workbook2 = new XSSFWorkbook(file);
-                    var sheet = workbook2.GetSheet("Sheet1");
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        cmd.CommandText = "INSERT INTO student (studentid, firstname, lastname, email, gpa) VALUES (@studentid, @firstname, @lastname, @email, @gpa)";
+                        cmd.Parameters.AddWithValue("studentid", Convert.ToInt32(dt.Rows[i]["studentid"]));
+                        cmd.Parameters.AddWithValue("firstname", dt.Rows[i]["firstname"].ToString());
+                        cmd.Parameters.AddWithValue("lastname", dt.Rows[i]["lastname"].ToString());
+                        cmd.Parameters.AddWithValue("gpa", Convert.ToDouble(dt.Rows[i]["gpa"]));
+                        cmd.Parameters.AddWithValue("email", dt.Rows[i]["email"].ToString());
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                    }
                 }
             }
         }

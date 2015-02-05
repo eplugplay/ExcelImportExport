@@ -85,12 +85,6 @@
     <Compile Include="Excel\ExcelWriter.cs" />
     <Compile Include="Excel\ExcelWriterException.cs" />
     <Compile Include="Excel\ExcelWriterFactory.cs" />
-    <Compile Include="Import.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Import.Designer.cs">
-      <DependentUpon>Import.cs</DependentUpon>
-    </Compile>
     <Compile Include="Report.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,9 +116,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReportDataSet.xsd</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Import.resx">
-      <DependentUpon>Import.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
@@ -147,12 +138,6 @@
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Report1.rdlc" />
-    <None Include="Excel\.svn\entries" />
-    <None Include="Excel\.svn\text-base\ExcelInteropWriter.cs.svn-base" />
-    <None Include="Excel\.svn\text-base\ExcelNPOIWriter.cs.svn-base" />
-    <None Include="Excel\.svn\text-base\ExcelWriter.cs.svn-base" />
-    <None Include="Excel\.svn\text-base\ExcelWriterException.cs.svn-base" />
-    <None Include="Excel\.svn\text-base\ExcelWriterFactory.cs.svn-base" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -180,13 +165,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Excel\.svn\prop-base\" />
-    <Folder Include="Excel\.svn\props\" />
-    <Folder Include="Excel\.svn\tmp\prop-base\" />
-    <Folder Include="Excel\.svn\tmp\props\" />
-    <Folder Include="Excel\.svn\tmp\text-base\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Excel\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="Excel\Microsoft.Office.Interop.Excel.xml" />

@@ -63,7 +63,7 @@ namespace ExcelImportExport
             if (MessageBox.Show("Save New Data?", "Save New Information?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 int newId = Class.ReportData.SaveData(Convert.ToInt32(txtStudentID.Text), txtFirstName.Text, txtLastName.Text, txtEmail.Text, Convert.ToDouble(txtGPA.Text));
-                if (MainMenu._Import != null || !MainMenu._Import.IsDisposed)
+                if (MainMenu._Report != null || !MainMenu._Report.IsDisposed)
                 {
                     MainMenu._Report.LoadStudentsDDL();
                     MainMenu._Report.ddlStudents.SelectedValue = newId;

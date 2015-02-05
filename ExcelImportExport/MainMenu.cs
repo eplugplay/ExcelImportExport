@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections;
+using ExcelImportExport.Class;
 
 namespace ExcelImportExport
 {
@@ -14,7 +16,6 @@ namespace ExcelImportExport
     {
         public static Report _Report;
         public static NewImport _NewImport;
-        public static Import _Import;
         public MainMenu()
         {
             InitializeComponent();
@@ -60,27 +61,65 @@ namespace ExcelImportExport
         }
         private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_Import == null || _Import.IsDisposed)
-            {
-                _Import = new Import();
-                _Import.Show();
-            }
-            else
-            {
-                if (_Import.WindowState == FormWindowState.Minimized)
-                {
-                    _Import.WindowState = FormWindowState.Normal;
-                }
-                else
-                {
-                    _Import.BringToFront();
-                }
-            }
+            ExportExcel();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            ExportExcel();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (_Report == null || _Report.IsDisposed)
+            {
+                _Report = new Report();
+                _Report.Show();
+            }
+            else
+            {
+                if (_Report.WindowState == FormWindowState.Minimized)
+                {
+                    _Report.WindowState = FormWindowState.Normal;
+                }
+                else
+                {
+                    _Report.BringToFront();
+                }
+            }
+        }
+
+        private void ExportExcel()
+        {
+            ArrayList path = GetSavePath();
+            if (path.Count != 0)
+            {
+                ImportData.LoadExcel(path);
+                MessageBox.Show("Export Complete!");
+            }
+        }
+
+        private ArrayList GetSavePath()
+        {
+            ArrayList ToBeReturned = new ArrayList();
+            openFileDialog.Multiselect = true;
+            openFileDialog.DefaultExt = "*.xls|*.xlsx";
+            openFileDialog.Filter = "Excel File (*.xls or .xlsx)|.xls;*.xlsx|All files (*.*)|*.*";
+            //openFileDialog.FileName = "Export - " + DateTime.Now.ToString("MMM-yy") + ".xls";
+            openFileDialog.FileName = "";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (string file in openFileDialog.FileNames)
+                {
+                    ToBeReturned.Add(file);
+                }
+            }
+            return ToBeReturned;
         }
        
     }

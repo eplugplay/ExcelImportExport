@@ -63,7 +63,7 @@ namespace ExcelImportExport.Class
             dtFinal.Columns.Add("Student ID", typeof(int));
             dtFinal.Columns.Add("First Name", typeof(string));
             dtFinal.Columns.Add("Last Name", typeof(string));
-            dtFinal.Columns.Add("GPA", typeof(double));
+            dtFinal.Columns.Add("GPA", typeof(decimal));
             dtFinal.Columns.Add("Email", typeof(string));
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -72,14 +72,13 @@ namespace ExcelImportExport.Class
                 dr["Student ID"] = dt.Rows[i]["studentid"];
                 dr["First Name"] = dt.Rows[i]["firstname"];
                 dr["Last Name"] = dt.Rows[i]["lastname"];
-                dr["GPA"] = dt.Rows[i]["gpa"];
+                dr["GPA"] = Convert.ToDecimal(dt.Rows[i]["gpa"]);
                 dr["Email"] = dt.Rows[i]["email"];
                 dtFinal.Rows.Add(dr);
             }
 
             //GenerateExcel(dtFinal, savePath);
             return dtFinal;
-            //System.Diagnostics.Process.Start(savePath);
         }
 
         private static void GenerateExcel(DataTable _dtFinal, string _savePath)
@@ -118,6 +117,7 @@ namespace ExcelImportExport.Class
                 excelObj.Dispose();
             }
             finally { excelObj.Dispose(); }
+            System.Diagnostics.Process.Start(_savePath);
         }
 
         private static void AutoSizeColumns(ExcelNPOIWriter exObj, DataTable tbl, string sheetName)

@@ -45,9 +45,9 @@ namespace ExcelImportExport
                 dr["id"] = dt.Rows[i]["id"];
                 finalDt.Rows.Add(dr);
             }
-            ddlStudents.DataSource = finalDt;
             ddlStudents.DisplayMember = "FullName";
             ddlStudents.ValueMember = "id";
+            ddlStudents.DataSource = finalDt;
         }
 
         private void LoadStudentData(int id)
@@ -104,8 +104,8 @@ namespace ExcelImportExport
 
         private void Export()
         {
-            //string path = GetSavePath();
             string path = "d";
+            //string path = GetSavePath();
             if (path != "")
             {
                 if (chkAllRecords.Checked)
@@ -149,9 +149,16 @@ namespace ExcelImportExport
 
         private void ddlStudents_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            //id = Convert.ToInt32(ddlStudents.SelectedValue);
+            //LoadStudentData(id);
+        }
+
+        private void ddlStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
             id = Convert.ToInt32(ddlStudents.SelectedValue);
             LoadStudentData(id);
         }
+
 
         private bool controlKey = false;
         private void ddlStudents_TextChanged(object sender, EventArgs e)
@@ -196,6 +203,11 @@ namespace ExcelImportExport
             else
             {
                 controlKey = false;
+            }
+            if (e.KeyChar == (char)13)
+            {
+                // Enter key pressed
+                
             }
         }
 
@@ -242,6 +254,5 @@ namespace ExcelImportExport
                 }
             }
         }
-
     }
 }

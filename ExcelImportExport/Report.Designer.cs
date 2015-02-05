@@ -31,6 +31,7 @@
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.GbxStudent = new System.Windows.Forms.GroupBox();
+            this.btnNew = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.GbxLoadStudents = new System.Windows.Forms.GroupBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.chkAllRecords = new System.Windows.Forms.CheckBox();
-            this.btnNew = new System.Windows.Forms.Button();
             this.GbxStudent.SuspendLayout();
             this.GbxLoadStudents.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +90,17 @@
             this.GbxStudent.TabIndex = 2;
             this.GbxStudent.TabStop = false;
             this.GbxStudent.Text = "Student Information";
+            // 
+            // btnNew
+            // 
+            this.btnNew.Location = new System.Drawing.Point(331, 23);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(20, 20);
+            this.btnNew.TabIndex = 12;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "+";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnSave
             // 
@@ -193,6 +204,7 @@
             this.ddlStudents.Size = new System.Drawing.Size(302, 21);
             this.ddlStudents.TabIndex = 11;
             this.ddlStudents.TabStop = false;
+            this.ddlStudents.SelectedIndexChanged += new System.EventHandler(this.ddlStudents_SelectedIndexChanged);
             this.ddlStudents.SelectionChangeCommitted += new System.EventHandler(this.ddlStudents_SelectionChangeCommitted);
             this.ddlStudents.TextChanged += new System.EventHandler(this.ddlStudents_TextChanged);
             this.ddlStudents.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ddlStudents_KeyPress);
@@ -233,18 +245,7 @@
             this.chkAllRecords.UseVisualStyleBackColor = true;
             this.chkAllRecords.CheckStateChanged += new System.EventHandler(this.chkAllRecords_CheckStateChanged);
             // 
-            // btnNew
-            // 
-            this.btnNew.Location = new System.Drawing.Point(331, 23);
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(20, 20);
-            this.btnNew.TabIndex = 12;
-            this.btnNew.TabStop = false;
-            this.btnNew.Text = "+";
-            this.btnNew.UseVisualStyleBackColor = true;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
-            // 
-            // Import
+            // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -255,7 +256,7 @@
             this.Controls.Add(this.btnExport);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
-            this.Name = "Import";
+            this.Name = "Report";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Import Excel";
             this.Load += new System.EventHandler(this.Import_Load);
