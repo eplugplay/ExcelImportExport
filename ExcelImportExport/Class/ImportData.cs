@@ -25,69 +25,53 @@ namespace ExcelImportExport.Class
             dt.Columns.Add("lastname", typeof(string));
             dt.Columns.Add("gpa", typeof(double));
             dt.Columns.Add("email", typeof(string));
-
+            IWorkbook WorkBook = null;
             try
             {
                 for (int i = 0; i < path.Count; i++)
                 {
                     string[] checkPath = path[i].ToString().Split('\\');
                     string[] extSplit = checkPath[(checkPath.Length - 1)].ToString().Split('.');
-                    if (extSplit[1].ToString().ToUpper().Equals("XLSX"))
-                    {
-                        using (FileStream file = new FileStream(path[i].ToString(), FileMode.Open, FileAccess.Read))
-                        {
-                            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(file);
-                            var sheet = xssfWorkbook.GetSheet("Report1");
 
-                            for (int row = 0; row < sheet.LastRowNum; row++)
+                    using (FileStream file = new FileStream(path[i].ToString(), FileMode.Open, FileAccess.Read))
+                    {
+                        if (extSplit[1].ToString().ToUpper().Equals("XLSX"))
+                        {
+                            WorkBook = new XSSFWorkbook(file);
+                        }
+                        else if (extSplit[1].ToString().ToUpper().Equals("XLS"))
+                        {
+                            WorkBook = new HSSFWorkbook(file);
+                        }
+                        var sheet = WorkBook.GetSheet("Report1");
+
+                        for (int row = 0; row < sheet.LastRowNum; row++)
+                        {
+                            if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
                             {
-                                if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
+                                DataRow dr = dt.NewRow();
+                                try
                                 {
-                                    DataRow dr = dt.NewRow();
-                                    try
-                                    {
-                                        dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());
-                                    }
-                                    catch
-                                    {
-                                        dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());
-                                    }
-                                    dr["firstname"] = sheet.GetRow(row + 1).GetCell(1).StringCellValue.ToString();
-                                    dr["lastname"] = sheet.GetRow(row + 1).GetCell(2).StringCellValue.ToString();
-                                    try
-                                    {
-                                        dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).NumericCellValue.ToString());
-                                    }
-                                    catch
-                                    {
-                                        dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).StringCellValue.ToString());
-                                    }
-                                    dr["email"] = sheet.GetRow(row + 1).GetCell(4).StringCellValue.ToString();
-                                    dt.Rows.Add(dr);
+                                    dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());
                                 }
+                                catch
+                                {
+                                    dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());
+                                }
+                                dr["firstname"] = sheet.GetRow(row + 1).GetCell(1).StringCellValue.ToString();
+                                dr["lastname"] = sheet.GetRow(row + 1).GetCell(2).StringCellValue.ToString();
+                                try
+                                {
+                                    dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).NumericCellValue.ToString());
+                                }
+                                catch
+                                {
+                                    dr["gpa"] = Convert.ToDouble(sheet.GetRow(row + 1).GetCell(3).StringCellValue.ToString());
+                                }
+                                dr["email"] = sheet.GetRow(row + 1).GetCell(4).StringCellValue.ToString();
+                                dt.Rows.Add(dr);
                             }
                         }
-                    }
-                    else if (extSplit[1].ToString().ToUpper().Equals("XLS"))
-                    {
-                        //using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
-                        //{
-                        //    HSSFWorkbook hssfWorkbook = new HSSFWorkbook(file);
-                        //    var sheet = hssfWorkbook.GetSheet("Sheet1");
-                        //    for (int row = 0; row < sheet.LastRowNum - 1; row++)
-                        //    {
-                        //        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
-                        //        {
-                        //            DataRow dr = dt.NewRow();
-                        //            dr["studentid"] = Convert.ToInt32(sheet.GetRow(row).GetCell(0).StringCellValue.ToString());
-                        //            dr["firstname"] = sheet.GetRow(row).GetCell(1).StringCellValue.ToString();
-                        //            dr["lastname"] = sheet.GetRow(row).GetCell(2).StringCellValue.ToString();
-                        //            dr["gpa"] = Convert.ToDouble(sheet.GetRow(row).GetCell(3).StringCellValue.ToString());
-                        //            dr["email"] = sheet.GetRow(row).GetCell(4).StringCellValue.ToString();
-                        //            dt.Rows.Add(dr);
-                        //        }
-                        //    }
-                        //}
                     }
                 }
                 SaveExcelToDb(dt);
