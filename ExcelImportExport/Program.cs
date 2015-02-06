@@ -9,6 +9,7 @@ namespace ExcelImportExport
 {
     static class Program
     {
+        public static MainMenu _MainMenu;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -25,7 +26,7 @@ namespace ExcelImportExport
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            Application.Run(_MainMenu = new MainMenu());
         }
     }
 }

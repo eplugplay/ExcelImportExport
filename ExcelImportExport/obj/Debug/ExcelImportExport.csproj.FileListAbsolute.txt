@@ -8,27 +8,6 @@ c:\users\stevey\documents\visual studio 2013\Projects\ExcelImportExport\ExcelImp
 c:\users\stevey\documents\visual studio 2013\Projects\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.pdb
 c:\users\stevey\documents\visual studio 2013\Projects\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Import.resources
 c:\users\stevey\documents\visual studio 2013\Projects\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.csprojResolveAssemblyReference.cache
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe.config
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.pdb
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ICSharpCode.SharpZipLib.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OOXML.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXml4Net.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXmlFormats.dll
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.xml
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OOXML.xml
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXml4Net.xml
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Report.resources
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.MainMenu.resources
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.NewImport.resources
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Properties.Resources.resources
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.ReportForm.resources
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.csproj.GenerateResource.Cache
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.cache
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.compiled
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.exe
-C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.pdb
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe.config
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.pdb
@@ -50,3 +29,24 @@ C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.compiled
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.exe
 C:\Users\Steve Yi\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.pdb
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe.config
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.exe
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ExcelImportExport.pdb
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.dll
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OOXML.dll
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXml4Net.dll
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXmlFormats.dll
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.xml
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OOXML.xml
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\bin\Debug\NPOI.OpenXml4Net.xml
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Report.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.MainMenu.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.NewImport.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.Properties.Resources.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.ReportForm.resources
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.csproj.GenerateResource.Cache
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.cache
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\RdlCompile.compiled
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.exe
+C:\Users\stevey\Documents\GitHub\ExcelImportExport\ExcelImportExport\obj\Debug\ExcelImportExport.pdb

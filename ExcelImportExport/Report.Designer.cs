@@ -31,6 +31,8 @@
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.GbxStudent = new System.Windows.Forms.GroupBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtEmail = new System.Windows.Forms.TextBox();
@@ -47,6 +49,7 @@
             this.GbxLoadStudents = new System.Windows.Forms.GroupBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.chkAllRecords = new System.Windows.Forms.CheckBox();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.GbxStudent.SuspendLayout();
             this.GbxLoadStudents.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +74,8 @@
             // 
             // GbxStudent
             // 
+            this.GbxStudent.Controls.Add(this.lblStatus);
+            this.GbxStudent.Controls.Add(this.progressBar);
             this.GbxStudent.Controls.Add(this.btnNew);
             this.GbxStudent.Controls.Add(this.btnSave);
             this.GbxStudent.Controls.Add(this.txtEmail);
@@ -90,6 +95,25 @@
             this.GbxStudent.TabIndex = 2;
             this.GbxStudent.TabStop = false;
             this.GbxStudent.Text = "Student Information";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(87, 167);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(47, 13);
+            this.lblStatus.TabIndex = 14;
+            this.lblStatus.Text = "Status:";
+            this.lblStatus.Visible = false;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(140, 157);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 23);
+            this.progressBar.TabIndex = 13;
+            this.progressBar.Visible = false;
             // 
             // btnNew
             // 
@@ -245,6 +269,11 @@
             this.chkAllRecords.UseVisualStyleBackColor = true;
             this.chkAllRecords.CheckStateChanged += new System.EventHandler(this.chkAllRecords_CheckStateChanged);
             // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            // 
             // Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,5 +319,8 @@
         private System.Windows.Forms.CheckBox chkAllRecords;
         private System.Windows.Forms.Button btnNew;
         public System.Windows.Forms.ComboBox ddlStudents;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }

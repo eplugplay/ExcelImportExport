@@ -13,6 +13,16 @@ using NPOI.HSSF.Util;
 
 namespace ExcelImportExport.Class
 {
+    public static class PassData
+    {
+        public static int studentvalue { get; set; }
+        public static string firstName { get; set; }
+        public static string lastName { get; set; }
+        public static int studentId { get; set; }
+        public static string email { get; set; }
+        public static double gpa { get; set; }
+    }
+
     public static class ReportData
     {
         public static int SaveData(int studentid, string firstname, string lastname, string email, double gpa)

@@ -8,26 +8,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ExcelImportExport.Class;
+using System.Collections;
+using ExcelImportExport.Class;
 
 namespace ExcelImportExport
 {
     public partial class Report : Form
     {
         private static ReportForm _ReportForm;
-        private int id { get; set; }
         public Report()
         {
             InitializeComponent();
         }
 
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //enable progress bar
+            lblStatus.InvokeEx(x => x.Visible = true);
+            progressBar.InvokeEx(x => x.Visible = true);
+            //PassData passData = (PassData)e.Argument;
+            progressBar.InvokeEx(x => x.Value = 80);
+            ReportData.UpdateData(PassData.studentvalue, PassData.studentId, PassData.firstName, PassData.lastName, PassData.email, PassData.gpa);
+            LoadStudentsDDL();
+            ddlStudents.InvokeEx(x => x.SelectedValue = PassData.studentvalue);
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progressBar.InvokeEx(x => x.Value = 100);
+            lblStatus.InvokeEx(x => x.Visible = false);
+            progressBar.InvokeEx(x => x.Visible = false);
+            MessageBox.Show("Updated.");
+        }
 
         private void Import_Load(object sender, EventArgs e)
         {
             //GbxStudent.Enabled = false;
             GbxLoadStudents.Enabled = true;
             LoadStudentsDDL();
-            id = Convert.ToInt32(ddlStudents.SelectedValue);
-            LoadStudentData(id);
+            PassData.studentvalue = Convert.ToInt32(ddlStudents.SelectedValue);
+            LoadStudentData(PassData.studentvalue);
             btnSave.Visible = true;
         }
 
@@ -45,9 +65,9 @@ namespace ExcelImportExport
                 dr["id"] = dt.Rows[i]["id"];
                 finalDt.Rows.Add(dr);
             }
-            ddlStudents.DisplayMember = "FullName";
-            ddlStudents.ValueMember = "id";
-            ddlStudents.DataSource = finalDt;
+            ddlStudents.InvokeEx(x => x.DisplayMember = "FullName");
+            ddlStudents.InvokeEx(x => x.ValueMember = "id");
+            ddlStudents.InvokeEx(x => x.DataSource = finalDt);
         }
 
         private void LoadStudentData(int id)
@@ -65,6 +85,11 @@ namespace ExcelImportExport
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (backgroundWorker.IsBusy)
+            {
+                MessageBox.Show("Please wait until process has finished.");
+                return;
+            }
             if (txtStudentID.Text == "") { MessageBox.Show("Please enter Student ID"); txtStudentID.Focus(); return; }
             try { int.Parse(txtStudentID.Text); }
             catch { MessageBox.Show("Please enter number only."); txtStudentID.Focus(); return; }
@@ -78,10 +103,13 @@ namespace ExcelImportExport
             //if (Uti.ValidateStudent(Convert.ToInt32(txtStudentID.Text))) { MessageBox.Show("Student already exist"); return; }
             if (MessageBox.Show("Update?", "Update Information?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                Class.ReportData.UpdateData(Convert.ToInt32(ddlStudents.SelectedValue), Convert.ToInt32(txtStudentID.Text), txtFirstName.Text, txtLastName.Text, txtEmail.Text, Convert.ToDouble(txtGPA.Text));
-                LoadStudentsDDL();
-                ddlStudents.SelectedValue = id;
-                MessageBox.Show("Updated.");
+                PassData.studentvalue = Convert.ToInt32(ddlStudents.SelectedValue);
+                PassData.studentId = Convert.ToInt32(txtStudentID.Text);
+                PassData.firstName = txtFirstName.Text;
+                PassData.lastName = txtLastName.Text;
+                PassData.email = txtEmail.Text;
+                PassData.gpa = Convert.ToDouble(txtGPA.Text);
+                backgroundWorker.RunWorkerAsync();
             }
         }
 
@@ -115,7 +143,7 @@ namespace ExcelImportExport
                 }
                 else
                 {
-                    LoadReport(ConvertToExcel.GetReportData(Uti.GetIndividualStudent(id), path));
+                    LoadReport(ConvertToExcel.GetReportData(Uti.GetIndividualStudent(PassData.studentvalue), path));
                 }
             }
         }
@@ -126,7 +154,7 @@ namespace ExcelImportExport
             if (_ReportForm == null || _ReportForm.IsDisposed)
             {
                 _ReportForm = new ReportForm(dt);
-                _ReportForm.Show();
+                _ReportForm.InvokeEx(x => x.Show());
             }
             else
             {
@@ -136,13 +164,17 @@ namespace ExcelImportExport
                 }
                 else
                 {
-                    _ReportForm.BringToFront();
+                    _ReportForm.InvokeEx(x => x.BringToFront());
                 }
             }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if(backgroundWorker.IsBusy)
+            {
+                MessageBox.Show("Please wait until process is finished.");
+            }
             Export();
         }
 
@@ -156,8 +188,11 @@ namespace ExcelImportExport
 
         private void ddlStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            id = Convert.ToInt32(ddlStudents.SelectedValue);
-            LoadStudentData(id);
+            if (!backgroundWorker.IsBusy)
+            {
+                PassData.studentvalue = Convert.ToInt32(ddlStudents.SelectedValue);
+                LoadStudentData(PassData.studentvalue);
+            }
         }
 
 

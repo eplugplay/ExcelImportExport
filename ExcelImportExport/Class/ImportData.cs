@@ -27,8 +27,11 @@ namespace ExcelImportExport.Class
             dt.Columns.Add("gpa", typeof(double));
             dt.Columns.Add("email", typeof(string));
             IWorkbook WorkBook = null;
+            double cntProgress = 20;
+            double cntTotal = 0;
             try
             {
+                cntTotal = GetTotalCount(path);
                 for (int i = 0; i < path.Count; i++)
                 {
                     string[] checkPath = path[i].ToString().Split('\\');
@@ -45,11 +48,23 @@ namespace ExcelImportExport.Class
                             WorkBook = new HSSFWorkbook(file);
                         }
                         var sheet = WorkBook.GetSheet("Report1");
+                        //cntTotal = Convert.ToDouble(sheet.LastRowNum);
 
-                        for (int row = 0; row < sheet.LastRowNum -1; row++)
+                        Program._MainMenu.lblStatus.InvokeEx(x => x.Text = "Reading Excel Files..");
+                        for (int row = 0; row < sheet.LastRowNum - 1; row++)
                         {
                             if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
                             {
+                                //cntTotal--;
+                                if (row == 0 || row == 1)
+                                {
+                                    Program._MainMenu.progressBar.InvokeEx(x => x.Value = Convert.ToInt32(cntProgress));
+                                }
+                                else
+                                {
+                                    cntProgress += (Double)(30 / Convert.ToDouble(cntTotal));
+                                    Program._MainMenu.progressBar.InvokeEx(x => x.Value = Convert.ToInt32(cntProgress));
+                                }
                                 DataRow dr = dt.NewRow();
                                 try{dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).NumericCellValue.ToString());}
                                 catch{dr["studentid"] = Convert.ToInt32(sheet.GetRow(row + 1).GetCell(0).StringCellValue.ToString());}
@@ -63,7 +78,7 @@ namespace ExcelImportExport.Class
                         }
                     }
                 }
-                SaveExcelToDb(dt);
+                SaveExcelToDb(dt, cntTotal, cntProgress);
             }
             catch
             {
@@ -71,15 +86,46 @@ namespace ExcelImportExport.Class
             }
         }
 
-        public static void SaveExcelToDb(DataTable dt)
+        public static double GetTotalCount(ArrayList path)
+        {
+            double toReturn = 0;
+            IWorkbook WorkBook = null;
+            for (int i = 0; i < path.Count; i++)
+            {
+                string[] checkPath = path[i].ToString().Split('\\');
+                string[] extSplit = checkPath[(checkPath.Length - 1)].ToString().Split('.');
+                using (FileStream file = new FileStream(path[i].ToString(), FileMode.Open, FileAccess.Read))
+                {
+                    if (extSplit[1].ToString().ToUpper().Equals("XLSX"))
+                    {
+                        WorkBook = new XSSFWorkbook(file);
+                    }
+                    else if (extSplit[1].ToString().ToUpper().Equals("XLS"))
+                    {
+                        WorkBook = new HSSFWorkbook(file);
+                    }
+                    var sheet = WorkBook.GetSheet("Report1");
+                    toReturn += Convert.ToDouble(sheet.LastRowNum);
+                }
+            }
+            return toReturn;
+        }
+
+        public static void SaveExcelToDb(DataTable dt, double cntTotal, double cntProgress)
         {
             using (MySqlConnection cnn = new MySqlConnection(ConfigurationManager.ConnectionStrings["cnn"].ToString()))
             {
                 cnn.Open();
                 using (var cmd = cnn.CreateCommand())
                 {
+                    Program._MainMenu.lblStatus.InvokeEx(x => x.Text = "Importing Data..");
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
+                        if (i != 0 || i != 1)
+                        {
+                            cntProgress += (Double)(50 / Convert.ToDouble(cntTotal));
+                            Program._MainMenu.progressBar.InvokeEx(x => x.Value = Convert.ToInt32(cntProgress));
+                        }
                         cmd.CommandText = "INSERT INTO student (studentid, firstname, lastname, email, gpa) VALUES (@studentid, @firstname, @lastname, @email, @gpa)";
                         cmd.Parameters.AddWithValue("studentid", Convert.ToInt32(dt.Rows[i]["studentid"]));
                         cmd.Parameters.AddWithValue("firstname", dt.Rows[i]["firstname"].ToString());

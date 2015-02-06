@@ -20,6 +20,51 @@ namespace ExcelImportExport
         {
             InitializeComponent();
         }
+
+        private class PassData
+        {
+            public PassData(ArrayList _savedPath) { savedPath = _savedPath; }
+            public ArrayList savedPath { get; set; }
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //enable progress bar
+            lblStatus.InvokeEx(x => x.Visible = true);
+            progressBar.InvokeEx(x => x.Visible = true);
+
+            PassData passData = (PassData)e.Argument;
+            ImportExcel(passData.savedPath);
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progressBar.InvokeEx(x => x.Value = 100);
+            lblStatus.InvokeEx(x => x.Visible = false);
+            progressBar.InvokeEx(x => x.Visible = false);
+            MessageBox.Show("Import Complete!");
+        }
+
+        private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnImport_Click(sender, e);
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                MessageBox.Show("Please wait until process has finished.");
+                return;
+            }
+            ArrayList path = GetSavePath();
+            if (path.Count != 0)
+            {
+                backgroundWorker.RunWorkerAsync(new PassData(path));
+            }
+        }
+       
+
         private void newReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_NewImport == null || _NewImport.IsDisposed)
@@ -59,23 +104,21 @@ namespace ExcelImportExport
                 }
             }
         }
-        private void ImportToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ExportExcel();
-        }
+
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnImport_Click(object sender, EventArgs e)
-        {
-            ExportExcel();
-        }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if (backgroundWorker.IsBusy)
+            {
+                MessageBox.Show("Please wait until process has finished.");
+                return;
+            }
             if (_Report == null || _Report.IsDisposed)
             {
                 _Report = new Report();
@@ -94,14 +137,10 @@ namespace ExcelImportExport
             }
         }
 
-        private void ExportExcel()
+        private void ImportExcel(ArrayList path)
         {
-            ArrayList path = GetSavePath();
-            if (path.Count != 0)
-            {
-                ImportData.LoadExcel(path);
-                MessageBox.Show("Export Complete!");
-            }
+            progressBar.InvokeEx(x => x.Value = 10);
+            ImportData.LoadExcel(path);
         }
 
         private ArrayList GetSavePath()
@@ -121,6 +160,5 @@ namespace ExcelImportExport
             }
             return ToBeReturned;
         }
-       
     }
 }
