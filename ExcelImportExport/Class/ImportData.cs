@@ -46,7 +46,7 @@ namespace ExcelImportExport.Class
                         }
                         var sheet = WorkBook.GetSheet("Report1");
 
-                        for (int row = 0; row < sheet.LastRowNum; row++)
+                        for (int row = 0; row < sheet.LastRowNum -1; row++)
                         {
                             if (sheet.GetRow(row) != null) //null is when the row only contains empty cells 
                             {

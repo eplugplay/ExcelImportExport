@@ -71,6 +71,7 @@ namespace ExcelImportExport
             if (txtFirstName.Text == "") { MessageBox.Show("Please enter First Name."); txtFirstName.Focus(); return; }
             if (txtLastName.Text == "")
             { MessageBox.Show("Please enter Last Name."); txtLastName.Focus(); return; }
+            if (txtEmail.Text == "") { MessageBox.Show("Please enter Email"); txtEmail.Focus(); return; }
             if (txtGPA.Text == "") { MessageBox.Show("Please enter GPA."); txtGPA.Focus(); return; }
             try { double.Parse(txtGPA.Text);}
             catch { MessageBox.Show("Please enter number only."); txtGPA.Focus(); return; }
